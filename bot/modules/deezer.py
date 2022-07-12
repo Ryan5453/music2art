@@ -1,8 +1,10 @@
 import hashlib
 import logging
 from typing import Optional
+
 import httpx
 from Crypto.Cipher import Blowfish
+
 from bot.core.config import deezer_master_key
 from bot.core.exceptions import DeezerAPIException
 
