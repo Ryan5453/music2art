@@ -26,10 +26,7 @@ class DeezerAPIClient:
         logger.debug(
             f"Sending POST request to Deezer API | Parameters: {str(params)} | Data: {str(data)}"
         )
-        r = await self.session.post(
-            f"https://www.deezer.com/ajax/gw-light.php?",
-            params=params,
-            json=data,
+        r = await self.session.post(f"https://www.deezer.com/ajax/gw-light.php?",params=params,json=data,
         )
         logger.debug(
             f"Received response from Deezer API | Status: {r.status_code} | Response: {r.text}"

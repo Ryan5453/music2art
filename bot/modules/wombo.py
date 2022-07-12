@@ -34,7 +34,9 @@ class Dream:
         logger.debug(
             f"Sending initial POST request to create task | Data: {str(body)} | Headers: {str(HEADERS)}"
         )
-        r = await self.session.post(WOMBO_API_URL + "/tasks/", json=body, headers=HEADERS)
+        r = await self.session.post(
+            WOMBO_API_URL + "/tasks/", json=body, headers=HEADERS
+        )
         logger.debug(
             f"Received response from Wombo API | Status: {r.status_code} | Response: {r.text}"
         )
