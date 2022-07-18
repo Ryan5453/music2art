@@ -12,7 +12,7 @@ GENIUS_API_URL = "https://genius.com/api/songs/chart"
 
 class GeniusAPIClient:
     def __init__(self):
-        self.session = httpx.AsyncClient()
+        self.session = httpx.AsyncClient(verify=False)
         self.chart = []
 
     # This function is internal to the class
@@ -32,19 +32,13 @@ class GeniusAPIClient:
             raise GeniusAPIException
         return json
 
-    # This function is internal to the class
-    # It is NOT required to be called from outside the class
-    async def _get_songs(self) -> None:
+    async def setup(self) -> None:
         logger.debug("Getting songs from Genius API...")
         for x in range(1, 5):
             data = await self._get_data(x, 50)
             for song in data["response"]["chart_items"]:
-                self.chart.append(song["item"]["full_title"])
+                self.chart.append(f"{song['item']['title']} {song['item']['primary_artist']['name']}")
         logger.debug(f"Got {len(self.chart)} songs from Genius API")
 
     async def get_random_song(self) -> str:
-        if not self.chart:
-            logger.debug("Internal chart is empty, getting songs from Genius API...")
-            await self._get_songs()
-
         return random.choice(self.chart).replace("\xa0", " ")

@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class DeezerAPIClient:
     def __init__(self) -> None:
-        self.session = httpx.AsyncClient()
+        self.session = httpx.AsyncClient(verify=False)
         self.token = ""
 
     async def _api_request(self, method: str, data: Optional[dict] = {}) -> dict:
@@ -84,7 +84,7 @@ class DeezerAPIClient:
         logger.debug(f"Blowfish key: {blowfish_key}")
         return blowfish_key
 
-    async def download_track(self, track_info: dict) -> bytes:
+    async def download_track(self, track) -> bytes:
         data = {
             "license_token": self.license_token,
             "media": [
@@ -93,7 +93,7 @@ class DeezerAPIClient:
                     "formats": [{"cipher": "BF_CBC_STRIPE", "format": "MP3_128"}],
                 }
             ],
-            "track_tokens": [track_info["TRACK_TOKEN"]],
+            "track_tokens": [track.track_token],
         }
         logger.debug(f"Sending POST request to get track URL | Data: {str(data)}")
         resp = await self.session.post("https://media.deezer.com/v1/get_url", json=data)
@@ -113,7 +113,7 @@ class DeezerAPIClient:
         if data.status_code != 200:
             raise DeezerAPIException
 
-        decryption_key = self._generate_blowfish_key(track_info["SNG_ID"])
+        decryption_key = self._generate_blowfish_key(track.track_id)
 
         iterations = 0
         virtual_file = b""

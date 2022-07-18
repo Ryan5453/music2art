@@ -17,19 +17,11 @@ HEADERS = {
 }
 
 
-class DreamResponse:
-    def __init__(self, image_url: str, creation_images: List[str]) -> None:
-        self.image_url = image_url
-        self.creation_images = creation_images
-
-
-class Dream:
+class WomboAPIClient:
     def __init__(self) -> None:
-        self.session = httpx.AsyncClient()
+        self.session = httpx.AsyncClient(verify=False)
 
-    # This function is required to be called
-    # If this is not called before the other functions, they will error
-    async def start_dream_task(self, *, use_target_image: bool = False) -> None:
+    async def start_dream(self, *, use_target_image: bool = False) -> None:
         body = {"use_target_image": use_target_image}
         logger.debug(
             f"Sending initial POST request to create task | Data: {str(body)} | Headers: {str(HEADERS)}"
@@ -50,8 +42,7 @@ class Dream:
             f"Saved dream ID ({self.dream_id}) and target image info ({str(self.target_image_info)})"
         )
 
-    # This function is completely optional
-    # It is only required to be called if the 'use_target_image' parameter was set to True in the 'start_dream_task' function
+    # This is only required to be called if the 'use_target_image' parameter was set to True in the 'start_dream_task' function
     async def post_target_image(self, image_bytes: bytes) -> None:
         data = self.target_image_info
         init_data = copy(data)
@@ -66,8 +57,6 @@ class Dream:
         if r.status_code != 200:
             raise WomboAPIException
 
-    # This function is required to be called
-    # It should be called after the 'start_dream_task' function, and the 'post_target_image' function if the 'use_target_image' parameter was set to True
     async def put_dream_data(
         self,
         *,
@@ -96,10 +85,8 @@ class Dream:
         if r.status_code != 200:
             raise WomboAPIException
 
-    # This function is required to be called
-    # It should be called after the 'post_dream_data' function
     # You will most likely need to call this function multiple times
-    async def get_dream_data(self) -> Optional[DreamResponse]:
+    async def get_dream_data(self) -> Optional[dict]:
         logger.debug(f"Sending GET request to get dream data")
         r = await self.session.get(
             WOMBO_API_URL + "/tasks/" + self.dream_id, headers=HEADERS
@@ -115,6 +102,4 @@ class Dream:
             raise WomboAPIException
         elif j["state"] == "completed":
             await self.session.aclose()
-            return DreamResponse(
-                image_url=j["result"], creation_images=j["photo_url_list"]
-            )
+            return j
