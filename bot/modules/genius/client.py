@@ -37,7 +37,9 @@ class GeniusAPIClient:
         for x in range(1, 5):
             data = await self._get_data(x, 50)
             for song in data["response"]["chart_items"]:
-                self.chart.append(f"{song['item']['title']} {song['item']['primary_artist']['name']}")
+                self.chart.append(
+                    f"{song['item']['title']} {song['item']['primary_artist']['name']}"
+                )
         logger.debug(f"Got {len(self.chart)} songs from Genius API")
 
     async def get_random_song(self) -> str:

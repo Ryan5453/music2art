@@ -1,5 +1,6 @@
 from copy import copy
 
+
 class Dream:
     def __init__(self, payload: dict) -> None:
         self.payload = payload

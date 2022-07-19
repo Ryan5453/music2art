@@ -4,11 +4,11 @@ import logging
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from bot.core.config import debug_mode
-from bot.video import do_it
+from bot.task import generate_art
 
 logging_format = "[%(asctime)s] [%(levelname)s] %(name)s - %(message)s"
 if debug_mode:
-    level = logging.INFO
+    level = logging.DEBUG
 else:
     level = logging.INFO
 
@@ -23,14 +23,14 @@ logging.getLogger("charset_normalizer").setLevel(
 if debug_mode:
     try:
         asyncio.run(
-            do_it()
+            generate_art()
         )  # When we are debugging, we don't want to run the scheduler
     except (KeyboardInterrupt, SystemExit):
         pass
     exit()
 
 scheduler = AsyncIOScheduler()
-scheduler.add_job(run_art_task, "interval", hours=1)
+scheduler.add_job(generate_art, "interval", hours=1)
 scheduler.start()
 
 

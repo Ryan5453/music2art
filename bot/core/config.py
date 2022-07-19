@@ -22,3 +22,25 @@ mongodb_url = os.environ.get(_ENV_VAR_PREFIX + "MONGODB_URL")
 if mongodb_url is None:
     print("MTATB_MONGODB_URL not set, exiting...")
     exit(1)
+
+twitter_api_key = os.environ.get(_ENV_VAR_PREFIX + "TWITTER_API_KEY")
+if twitter_api_key is None:
+    print("MTATB_TWITTER_API_KEY not set, exiting...")
+    exit(1)
+
+twitter_api_secret = os.environ.get(_ENV_VAR_PREFIX + "TWITTER_API_SECRET")
+if twitter_api_secret is None:
+    print("MTATB_TWITTER_API_SECRET not set, exiting...")
+    exit(1)
+
+twitter_access_token = os.environ.get(_ENV_VAR_PREFIX + "TWITTER_ACCESS_TOKEN")
+if twitter_access_token is None:
+    print("MTATB_TWITTER_ACCESS_TOKEN not set, exiting...")
+    exit(1)
+
+twitter_access_token_secret = os.environ.get(
+    _ENV_VAR_PREFIX + "TWITTER_ACCESS_TOKEN_SECRET"
+)
+if twitter_access_token_secret is None:
+    print("MTATB_TWITTER_ACCESS_TOKEN_SECRET not set, exiting...")
+    exit(1)

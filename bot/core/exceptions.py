@@ -16,3 +16,6 @@ class DeezerAPIException(BaseException):
 
 class ImageException(BaseException):
     pass
+
+class SongWhipException(BaseException):
+    pass

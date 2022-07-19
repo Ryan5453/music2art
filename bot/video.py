@@ -6,7 +6,7 @@ from bot.constants import VIDEO_HEIGHT, VIDEO_WIDTH
 from bot.core.exceptions import ImageException
 from bot.core.files import FileStorage
 from bot.modules import (DeezerAPIClient, Dream, GeniusAPIClient, Track,
-                         WomboAPIClient)
+                         TwitterClient, WomboAPIClient, SongWhipClient)
 
 
 class VideoGenerator:
@@ -16,6 +16,8 @@ class VideoGenerator:
         self.wombo_client = WomboAPIClient()
         self.file_storage = FileStorage()
         self.session = httpx.AsyncClient(verify=False)
+        self.twitter_client = TwitterClient()
+        self.songwhip_client = SongWhipClient()
 
     async def _download_image(self, image_url: str) -> bytes:
         response = await self.session.get(image_url)
@@ -78,7 +80,7 @@ class VideoGenerator:
 
         The duration parameter is in seconds.
         """
-        return float(min(min(int(duration * 0.1), 15), self.lyric.duration + 4.5))
+        return float(min(min(int(duration * 0.1), 15), self.lyric.duration + 3))
 
     def _calculate_music_start_time(self) -> float:
         """
@@ -108,7 +110,7 @@ class VideoGenerator:
         """
         Return value is in seconds.
         """
-        concat_file = f"file {self.file_storage.get('main_image')}\nduration 0.00001\n" # This is a hack to make the first image show up in thumbnails
+        concat_file = f"file {self.file_storage.get('main_image')}\nduration 0.00001\n"  # This is a hack to make the first image show up in thumbnails
         for generation_file in self.file_storage.get_list("creation_images"):
             concat_file += f"file {generation_file}\nduration {self._calcuate_time_for_creation_images()}\n"
         concat_file += f"file {self.file_storage.get('main_image')}\nduration {self._calculate_time_for_main_image()}\n"
@@ -116,13 +118,14 @@ class VideoGenerator:
 
     async def generate_video(self) -> None:
         await self._generate_concat_file()
+        path = await self.file_storage.store("video", ext="mp4")
         ffmpeg_command = [
             "ffmpeg",
             "-ss",
             str(self._calculate_music_start_time()),
             "-t",
             str(self._calc_max_duration(self.track.duration)),
-            "-i", 
+            "-i",
             self.file_storage.get("track"),
             "-f",
             "concat",
@@ -134,24 +137,17 @@ class VideoGenerator:
             "30",
             "-vf",
             f"scale=w={VIDEO_WIDTH}:h={VIDEO_HEIGHT}",
-            "-f",
-            "mp4",
-            "-movflags",
-            "frag_keyframe",
-            "pipe:1",
+            path,
         ]
-        print(ffmpeg_command)
-        p = await asyncio.create_subprocess_exec(*ffmpeg_command, stdout=asyncio.subprocess.PIPE)
-        data, _ = await p.communicate()
-        await self.file_storage.save("video", data)
-        print(self.file_storage.get("video"))
+        p = await asyncio.create_subprocess_exec(
+            *ffmpeg_command
+        )
+        await p.communicate()
 
-
-async def do_it():
-    generator = VideoGenerator()
-    await generator.get_song_data()
-    await generator.create_dream()
-    await generator.download_track()
-    await generator.download_dream_images()
-    await generator.generate_video()
-    #await generator.file_storage.clear()
+    async def post(self):
+        status = f'"{self.lyric.text[:100]}" - {self.track.artist[:50]}'
+        await self.twitter_client.post(
+            message=status,
+            file_path=self.file_storage.get("video"),
+            link=await self.songwhip_client.get_url(self.track.url),
+        )

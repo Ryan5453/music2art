@@ -46,6 +46,14 @@ class Track:
         self.payload = payload
 
     @property
+    def artist(self) -> str:
+        return self.payload["ART_NAME"]
+
+    @property
+    def url(self) -> str:
+        return "https://www.deezer.com/track/" + self.track_id
+
+    @property
     def has_lyrics(self) -> bool:
         return self.payload["HAS_LYRICS"]
 
