@@ -60,7 +60,7 @@ class FileStorage:
             self.files[name] = []
         self.files[name].append(filename)
 
-    async def store(self, name: str, *, ext: str="") -> str:
+    async def store(self, name: str, *, ext: str = "") -> str:
         """
         Generate a placeholder file and return its path.
         """
@@ -68,7 +68,6 @@ class FileStorage:
         filename = f"/tmp/{uuid}" + (f".{ext}" if ext else "")
         self.files[name] = filename
         return filename
-        
 
     async def clear(self) -> None:
         """

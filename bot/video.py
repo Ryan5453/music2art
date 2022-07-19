@@ -5,8 +5,8 @@ import httpx
 from bot.constants import VIDEO_HEIGHT, VIDEO_WIDTH
 from bot.core.exceptions import ImageException
 from bot.core.files import FileStorage
-from bot.modules import (DeezerAPIClient, Dream, GeniusAPIClient, Track,
-                         TwitterClient, WomboAPIClient, SongWhipClient)
+from bot.modules import (DeezerAPIClient, Dream, GeniusAPIClient,
+                         SongWhipClient, Track, TwitterClient, WomboAPIClient)
 
 
 class VideoGenerator:
@@ -139,9 +139,7 @@ class VideoGenerator:
             f"scale=w={VIDEO_WIDTH}:h={VIDEO_HEIGHT}",
             path,
         ]
-        p = await asyncio.create_subprocess_exec(
-            *ffmpeg_command
-        )
+        p = await asyncio.create_subprocess_exec(*ffmpeg_command)
         await p.communicate()
 
     async def post(self):

@@ -1,5 +1,7 @@
 import httpx
+
 from bot.core.exceptions import SongWhipException
+
 
 class SongWhipClient:
     def __init__(self):
@@ -10,7 +12,9 @@ class SongWhipClient:
             "url": url,
             "country": "US",
         }
-        response = await self.session.post("https://songwhip.com/api/songwhip/create?v=2", json=data)
+        response = await self.session.post(
+            "https://songwhip.com/api/songwhip/create?v=2", json=data
+        )
         if response.status_code != 200:
             raise SongWhipException(f"Failed to get url from {url}")
         json = response.json()
