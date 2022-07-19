@@ -6,11 +6,11 @@
     <a href="https://twitter.com/musictoart">
         <img src="https://img.shields.io/twitter/follow/musictoart?style=social">
     </a>
-    <a href="https://github.com/aleclol/musictoart/stargazers">
-        <img src="https://img.shields.io/github/stars/aleclol/musictoart?style=social">
+    <a href="https://github.com/ryan5453/musictoart/stargazers">
+        <img src="https://img.shields.io/github/stars/ryan5453/musictoart?style=social">
     </a>
-    <a href="https://github.com/aleclol/musictoart/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/aleclol/musictoart">
+    <a href="https://github.com/ryan5453/musictoart/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/ryan5453/musictoart">
     </a>
     <a href="https://python.org/">
         <img src="https://img.shields.io/badge/python-3.9-blue">
