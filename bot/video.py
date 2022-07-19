@@ -50,7 +50,7 @@ class VideoGenerator:
         await self.wombo_client.start_dream(use_target_image=False)
         await self.wombo_client.put_dream_data(
             prompt=self.lyric.text,
-            style=17,  # 7 is the style of the "Realistic" style
+            style=5,  # 5 is the "Fantasy Art" style
             height=VIDEO_HEIGHT,
             width=VIDEO_WIDTH,
             target_image_weight=0.0,

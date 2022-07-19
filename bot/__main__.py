@@ -33,7 +33,7 @@ if debug_mode:
 scheduler = AsyncIOScheduler()
 scheduler.add_job(
     generate_art,
-    CronTrigger.from_crontab("0 * * * *", timezone="America/New_York"),
+    CronTrigger.from_crontab("0 */3 * * *", timezone="America/New_York"),
 )
 scheduler.start()
 

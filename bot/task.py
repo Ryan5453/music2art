@@ -9,4 +9,4 @@ async def generate_art():
     await generator.download_dream_images()
     await generator.generate_video()
     await generator.post()
-    # await generator.file_storage.clear()
+    await generator.file_storage.clear()
