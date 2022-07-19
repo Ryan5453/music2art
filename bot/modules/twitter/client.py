@@ -3,12 +3,8 @@ import functools
 
 import tweepy
 
-from bot.core.config import (
-    twitter_access_token,
-    twitter_access_token_secret,
-    twitter_api_key,
-    twitter_api_secret,
-)
+from bot.core.config import (twitter_access_token, twitter_access_token_secret,
+                             twitter_api_key, twitter_api_secret)
 
 
 class TwitterClient:

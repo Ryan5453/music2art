@@ -5,15 +5,8 @@ import httpx
 from bot.constants import VIDEO_HEIGHT, VIDEO_WIDTH
 from bot.core.exceptions import ImageException
 from bot.core.files import FileStorage
-from bot.modules import (
-    DeezerAPIClient,
-    Dream,
-    GeniusAPIClient,
-    SongWhipClient,
-    Track,
-    TwitterClient,
-    WomboAPIClient,
-)
+from bot.modules import (DeezerAPIClient, Dream, GeniusAPIClient,
+                         SongWhipClient, Track, TwitterClient, WomboAPIClient)
 
 
 class VideoGenerator:
