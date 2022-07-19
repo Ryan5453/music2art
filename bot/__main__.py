@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 
 from bot.core.config import debug_mode
 from bot.task import generate_art
@@ -30,7 +31,10 @@ if debug_mode:
     exit()
 
 scheduler = AsyncIOScheduler()
-scheduler.add_job(generate_art, "interval", hours=1)
+scheduler.add_job(
+    generate_art,
+    CronTrigger.from_crontab("0 * * * *", timezone="America/New_York"),
+)
 scheduler.start()
 
 
