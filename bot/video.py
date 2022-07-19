@@ -110,7 +110,7 @@ class VideoGenerator:
         """
         Return value is in seconds.
         """
-        concat_file = f"file {self.file_storage.get('main_image')}\nduration 0.00001\n"  # This is a hack to make the first image show up in thumbnails
+        concat_file = f"file {self.file_storage.get('main_image')}\nduration 0.03\n"  # This is a hack to make the first image show up in thumbnails
         for generation_file in self.file_storage.get_list("creation_images"):
             concat_file += f"file {generation_file}\nduration {self._calcuate_time_for_creation_images()}\n"
         concat_file += f"file {self.file_storage.get('main_image')}\nduration {self._calculate_time_for_main_image()}\n"
