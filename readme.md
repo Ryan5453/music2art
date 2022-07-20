@@ -24,7 +24,7 @@
 </p>
 
 ## What does it do?
-Every hour, the bot will post a video of art generated from a random song from the Genius charts.
+Every 3 hours, the bot will post a video of art generated from a random song from the Genius charts.
 
 ## What services does it use?
 - [Genius API](https://docs.genius.com/), for getting the top 200 songs from the Genius daily charts
