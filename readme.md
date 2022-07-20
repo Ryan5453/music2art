@@ -29,6 +29,6 @@ Every 3 hours, the bot will post a video of art generated from a random song fro
 ## What services does it use?
 - [Genius API](https://docs.genius.com/), for getting the top 200 songs from the Genius daily charts
 - [Deezer](https://www.deezer.com/), for downloading the song and the line-by-line lyrics of the song
-- [WOMBO API](https://w.ai/), for generating art based on the lyrics
+- [WOMBO API](https://www.w.ai/dream-api), for generating art based on the lyrics
 - [FFmpeg](https://www.ffmpeg.org/), for grabbing the correct part of the audio and adding the art on top
 - [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/overview), for posting the video to Twitter
