@@ -44,3 +44,18 @@ twitter_access_token_secret = os.environ.get(
 if twitter_access_token_secret is None:
     print("MTATB_TWITTER_ACCESS_TOKEN_SECRET not set, exiting...")
     exit(1)
+
+wombo_style_id = int(os.environ.get(_ENV_VAR_PREFIX + "WOMBO_STYLE_ID"))
+if wombo_style_id is None:
+    print("MTATB_WOMBO_STYLE_ID not set, exiting...")
+    exit(1)
+
+video_height = os.environ.get(_ENV_VAR_PREFIX + "VIDEO_HEIGHT")
+if video_height is None:
+    print("MTATB_VIDEO_HEIGHT not set, exiting...")
+    exit(1)
+
+video_width = os.environ.get(_ENV_VAR_PREFIX + "VIDEO_WIDTH")
+if video_width is None:
+    print("MTATB_VIDEO_WIDTH not set, exiting...")
+    exit(1)

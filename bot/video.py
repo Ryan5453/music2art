@@ -2,7 +2,7 @@ import asyncio
 
 import httpx
 
-from bot.constants import VIDEO_HEIGHT, VIDEO_WIDTH
+from bot.core.config import video_height, video_width, wombo_style_id
 from bot.core.exceptions import ImageException
 from bot.core.files import FileStorage
 from bot.modules import (
@@ -57,9 +57,9 @@ class VideoGenerator:
         await self.wombo_client.start_dream(use_target_image=False)
         await self.wombo_client.put_dream_data(
             prompt=self.lyric.text,
-            style=5,  # 5 is the "Fantasy Art" style
-            height=VIDEO_HEIGHT,
-            width=VIDEO_WIDTH,
+            style=wombo_style_id,
+            height=video_height,
+            width=video_height,
             target_image_weight=0.0,
         )
         dream_data = None
@@ -143,7 +143,7 @@ class VideoGenerator:
             "-r",
             "30",
             "-vf",
-            f"scale=w={VIDEO_WIDTH}:h={VIDEO_HEIGHT}",
+            f"scale=w={video_width}:h={video_height}",
             path,
         ]
         p = await asyncio.create_subprocess_exec(*ffmpeg_command)
