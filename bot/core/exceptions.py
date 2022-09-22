@@ -6,7 +6,7 @@ class WomboAPIException(BaseException):
     pass
 
 
-class GeniusAPIException(BaseException):
+class SpotifyAPIException(BaseException):
     pass
 
 

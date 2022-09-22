@@ -8,7 +8,7 @@ from bot.core.files import FileStorage
 from bot.modules import (
     DeezerAPIClient,
     Dream,
-    GeniusAPIClient,
+    SpotifyAPIClient,
     SongWhipClient,
     Track,
     TwitterClient,
@@ -19,7 +19,7 @@ from bot.modules import (
 class VideoGenerator:
     def __init__(self) -> None:
         self.deezer_client = DeezerAPIClient()
-        self.genius_client = GeniusAPIClient()
+        self.spotify_client = SpotifyAPIClient()
         self.wombo_client = WomboAPIClient()
         self.file_storage = FileStorage()
         self.session = httpx.AsyncClient(verify=False)
@@ -34,9 +34,9 @@ class VideoGenerator:
 
     async def get_song_data(self) -> None:
         await self.deezer_client.setup()
-        await self.genius_client.setup()
-        for _ in range(len(self.genius_client.chart)):
-            song = await self.genius_client.get_random_song()
+        await self.spotify_client.setup()
+        for _ in range(len(self.spotify_client.chart)):
+            song = await self.spotify_client.get_random_song()
             search_results = await self.deezer_client.search(song)
             if len(search_results) == 0:
                 continue
