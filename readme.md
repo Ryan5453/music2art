@@ -23,6 +23,8 @@
     </a>
 </p>
 
+This project has been archived because of Twitter's new API rules. I will not be updating this project.
+
 ## What does it do?
 Every 3 hours, the bot will post a video of art generated from a random song from the Spotify charts.
 
