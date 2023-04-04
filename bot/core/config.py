@@ -18,11 +18,6 @@ if deezer_master_key is None:
     print("MTATB_DEEZER_MASTER_KEY not set, exiting...")
     exit(1)
 
-mongodb_url = os.environ.get(_ENV_VAR_PREFIX + "MONGODB_URL")
-if mongodb_url is None:
-    print("MTATB_MONGODB_URL not set, exiting...")
-    exit(1)
-
 twitter_api_key = os.environ.get(_ENV_VAR_PREFIX + "TWITTER_API_KEY")
 if twitter_api_key is None:
     print("MTATB_TWITTER_API_KEY not set, exiting...")
@@ -58,4 +53,9 @@ if video_height is None:
 video_width = os.environ.get(_ENV_VAR_PREFIX + "VIDEO_WIDTH")
 if video_width is None:
     print("MTATB_VIDEO_WIDTH not set, exiting...")
+    exit(1)
+
+_openai_api_key = os.environ.get("OPENAI_API_KEY")
+if _openai_api_key is None:
+    print("OPENAI_API_KEY not set, exiting...")
     exit(1)
