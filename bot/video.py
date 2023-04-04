@@ -8,12 +8,13 @@ from bot.core.files import FileStorage
 from bot.modules import (
     DeezerAPIClient,
     Dream,
-    SpotifyAPIClient,
     SongWhipClient,
+    SpotifyAPIClient,
     Track,
     TwitterClient,
     WomboAPIClient,
 )
+from bot.modules.chatgpt.client import generate_prompt
 
 
 class VideoGenerator:
@@ -56,7 +57,7 @@ class VideoGenerator:
     async def create_dream(self) -> None:
         await self.wombo_client.start_dream(use_target_image=False)
         await self.wombo_client.put_dream_data(
-            prompt=self.lyric.text,
+            prompt=await generate_prompt(self.lyric.text),
             style=wombo_style_id,
             height=video_height,
             width=video_height,
@@ -76,10 +77,6 @@ class VideoGenerator:
         await self.file_storage.save(
             "main_image", await self._download_image(self.dream_data.image)
         )
-        for image_url in self.dream_data.creation_images:
-            await self.file_storage.append(
-                f"creation_images", await self._download_image(image_url)
-            )
 
     def _calc_max_duration(self, duration: float) -> float:
         """
@@ -113,18 +110,7 @@ class VideoGenerator:
         """
         return self._calc_max_duration(self.track.duration) - 1.5
 
-    async def _generate_concat_file(self) -> None:
-        """
-        Return value is in seconds.
-        """
-        concat_file = f"file {self.file_storage.get('main_image')}\nduration 0.03\n"  # This is a hack to make the first image show up in thumbnails
-        for generation_file in self.file_storage.get_list("creation_images"):
-            concat_file += f"file {generation_file}\nduration {self._calcuate_time_for_creation_images()}\n"
-        concat_file += f"file {self.file_storage.get('main_image')}\nduration {self._calculate_time_for_main_image()}\n"
-        await self.file_storage.save("concat_file", concat_file.encode("utf-8"))
-
     async def generate_video(self) -> None:
-        await self._generate_concat_file()
         path = await self.file_storage.store("video", ext="mp4")
         ffmpeg_command = [
             "ffmpeg",
@@ -134,12 +120,8 @@ class VideoGenerator:
             str(self._calc_max_duration(self.track.duration)),
             "-i",
             self.file_storage.get("track"),
-            "-f",
-            "concat",
-            "-safe",
-            "false",
             "-i",
-            self.file_storage.get("concat_file"),
+            self.file_storage.get("main_image"),
             "-r",
             "30",
             "-vf",

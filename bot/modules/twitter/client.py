@@ -18,7 +18,6 @@ class TwitterClient:
         self.api = tweepy.API(auth)
 
     async def post(self, *, message: str, file_path: str, link: str):
-
         loop = asyncio.get_event_loop()
 
         media = await loop.run_in_executor(

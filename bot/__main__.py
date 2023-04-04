@@ -8,13 +8,9 @@ from bot.core.config import debug_mode
 from bot.task import generate_art
 
 logging_format = "[%(asctime)s] [%(levelname)s] %(name)s - %(message)s"
-if debug_mode:
-    level = logging.DEBUG
-else:
-    level = logging.INFO
 
 logging.basicConfig(
-    level=level, format="[%(asctime)s] [%(levelname)s] %(name)s - %(message)s"
+    level=logging.INFO, format="[%(asctime)s] [%(levelname)s] %(name)s - %(message)s"
 )
 
 logging.getLogger("charset_normalizer").setLevel(

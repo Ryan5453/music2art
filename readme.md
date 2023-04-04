@@ -23,13 +23,6 @@
     </a>
 </p>
 
-This project has been archived because of Twitter's new API rules. I will not be updating this project.
-
 ## What does it do?
-Every 3 hours, the bot will post a video of art generated from a random song from the Spotify charts.
 
-## What services does it use?
-- [Deezer](https://www.deezer.com/), for downloading the song and the line-by-line lyrics of the song
-- [WOMBO API](https://www.w.ai/dream-api), for generating art based on the lyrics
-- [FFmpeg](https://www.ffmpeg.org/), for grabbing the correct part of the audio and adding the art on top
-- [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/overview), for posting the video to Twitter
+This Twitter bot generates art from music. It takes a song, chooses a line from the lyrics, and uses that line to generate an image. The image is then tweeted out with the line of lyrics and the song title.

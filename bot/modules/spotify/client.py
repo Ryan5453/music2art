@@ -24,7 +24,9 @@ class SpotifyAPIClient:
             )
         json = response.json()
         for entry in json["chartEntryViewResponses"][0]["entries"]:
-            self.chart.append(f"{entry['trackMetadata']['trackName']} {entry['trackMetadata']['artists'][0]['name']}")
+            self.chart.append(
+                f"{entry['trackMetadata']['trackName']} {entry['trackMetadata']['artists'][0]['name']}"
+            )
 
         logger.debug(f"Got {len(self.chart)} songs from Spotify API")
 
