@@ -60,7 +60,7 @@ class VideoGenerator:
             prompt=await generate_prompt(self.lyric.text),
             style=wombo_style_id,
             height=video_height,
-            width=video_height,
+            width=video_width,
             target_image_weight=0.0,
         )
         dream_data = None
