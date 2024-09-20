@@ -3,14 +3,11 @@
 </p>
 
 <p align="center">
-    <a href="https://twitter.com/musictoart">
-        <img src="https://img.shields.io/twitter/follow/musictoart?style=social">
+    <a href="https://github.com/ryan5453/music2art/stargazers">
+        <img src="https://img.shields.io/github/stars/ryan5453/music2art?style=social">
     </a>
-    <a href="https://github.com/ryan5453/musictoart/stargazers">
-        <img src="https://img.shields.io/github/stars/ryan5453/musictoart?style=social">
-    </a>
-    <a href="https://github.com/ryan5453/musictoart/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/ryan5453/musictoart">
+    <a href="https://github.com/ryan5453/music2art/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/ryan5453/music2art">
     </a>
     <a href="https://python.org/">
         <img src="https://img.shields.io/badge/python-3.9-blue">
@@ -22,6 +19,9 @@
         <img src="https://img.shields.io/badge/imports-isort-black.svg">
     </a>
 </p>
+
+> [!WARNING]  
+> This repository is no longer supported. The bot, which used to be located at @musictoart on Twitter, bas been shut down.
 
 ## What does it do?
 
