@@ -1,7 +1,7 @@
 # MusicToArt Twitter Bot
 
 > [!WARNING]  
-> This repository is no longer supported. The bot, which used to be located at @musictoart on Twitter, bas been shut down.
+> This repository is no longer supported. The bot, which used to be located at @musictoart on Twitter, has been shut down.
 
 ## What does it do?
 
